@@ -1,0 +1,12 @@
+# This file is used internally by FFMPEG.
+file 'file:C:/Users/Dell/OneDrive/Documents/Work/Programming/DeepDive/math_explainer/media/videos/temp_manim_script/1080p60/partial_movie_files/Equations/3977891868_3675527114_223132457.mp4'
+file 'file:C:/Users/Dell/OneDrive/Documents/Work/Programming/DeepDive/math_explainer/media/videos/temp_manim_script/1080p60/partial_movie_files/Equations/2852726489_4247107814_1339494809.mp4'
+file 'file:C:/Users/Dell/OneDrive/Documents/Work/Programming/DeepDive/math_explainer/media/videos/temp_manim_script/1080p60/partial_movie_files/Equations/2852726489_2524269341_889706667.mp4'
+file 'file:C:/Users/Dell/OneDrive/Documents/Work/Programming/DeepDive/math_explainer/media/videos/temp_manim_script/1080p60/partial_movie_files/Equations/2852726489_4166842112_184114409.mp4'
+file 'file:C:/Users/Dell/OneDrive/Documents/Work/Programming/DeepDive/math_explainer/media/videos/temp_manim_script/1080p60/partial_movie_files/Equations/2852726489_3362078315_3970943997.mp4'
+file 'file:C:/Users/Dell/OneDrive/Documents/Work/Programming/DeepDive/math_explainer/media/videos/temp_manim_script/1080p60/partial_movie_files/Equations/2852726489_4071516364_73428693.mp4'
+file 'file:C:/Users/Dell/OneDrive/Documents/Work/Programming/DeepDive/math_explainer/media/videos/temp_manim_script/1080p60/partial_movie_files/Equations/2852726489_3354115096_2028361628.mp4'
+file 'file:C:/Users/Dell/OneDrive/Documents/Work/Programming/DeepDive/math_explainer/media/videos/temp_manim_script/1080p60/partial_movie_files/Equations/2852726489_4247107814_2282193352.mp4'
+file 'file:C:/Users/Dell/OneDrive/Documents/Work/Programming/DeepDive/math_explainer/media/videos/temp_manim_script/1080p60/partial_movie_files/Equations/2852726489_1892439075_311455626.mp4'
+file 'file:C:/Users/Dell/OneDrive/Documents/Work/Programming/DeepDive/math_explainer/media/videos/temp_manim_script/1080p60/partial_movie_files/Equations/2852726489_4166842112_2771537550.mp4'
+file 'file:C:/Users/Dell/OneDrive/Documents/Work/Programming/DeepDive/math_explainer/media/videos/temp_manim_script/1080p60/partial_movie_files/Equations/2852726489_2584687668_2358810818.mp4'

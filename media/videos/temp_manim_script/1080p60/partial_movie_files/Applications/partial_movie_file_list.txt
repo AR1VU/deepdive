@@ -1,0 +1,8 @@
+# This file is used internally by FFMPEG.
+file 'file:C:/Users/Dell/OneDrive/Documents/Work/Programming/DeepDive/math_explainer/media/videos/temp_manim_script/1080p60/partial_movie_files/Applications/3977891868_3290753272_223132457.mp4'
+file 'file:C:/Users/Dell/OneDrive/Documents/Work/Programming/DeepDive/math_explainer/media/videos/temp_manim_script/1080p60/partial_movie_files/Applications/2852726489_4071516364_385376769.mp4'
+file 'file:C:/Users/Dell/OneDrive/Documents/Work/Programming/DeepDive/math_explainer/media/videos/temp_manim_script/1080p60/partial_movie_files/Applications/2852726489_936786057_1284319969.mp4'
+file 'file:C:/Users/Dell/OneDrive/Documents/Work/Programming/DeepDive/math_explainer/media/videos/temp_manim_script/1080p60/partial_movie_files/Applications/2852726489_4071516364_922766573.mp4'
+file 'file:C:/Users/Dell/OneDrive/Documents/Work/Programming/DeepDive/math_explainer/media/videos/temp_manim_script/1080p60/partial_movie_files/Applications/2852726489_14094710_34583267.mp4'
+file 'file:C:/Users/Dell/OneDrive/Documents/Work/Programming/DeepDive/math_explainer/media/videos/temp_manim_script/1080p60/partial_movie_files/Applications/2852726489_4166842112_612001656.mp4'
+file 'file:C:/Users/Dell/OneDrive/Documents/Work/Programming/DeepDive/math_explainer/media/videos/temp_manim_script/1080p60/partial_movie_files/Applications/2852726489_3585656186_2358810818.mp4'

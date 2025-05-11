@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>DeepDive AI</title>
+    <meta name="description" content="Page Description" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="/static/video_generator/media/favicon.ico" />
+    <link rel="preload" as="image" fetchpriority="high" />
+    <meta name="next-head-count" content="6" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="/static/video_generator/styles.css" />
+  </head>
+  <body>
+    <div id="__next">
+      <main class="page-wrapper">
+        <header
+          class="rainbow-header header-default header-transparent header-sticky"
+          style="padding-top: 4rem"
+        >
+          <div class="container position-relative">
+            <div class="row align-items-center row--0">
+              <div class="col-lg-2 col-md-6 col-6">
+                <div class="logo">
+                  <a style="font-size: 4rem !important; color: white"
+                    >DeepDive</a
+                  >
+                </div>
+              </div>
+              <div class="col-lg-8 d-none d-lg-block"></div>
+              <div class="col-lg-2 col-md-6 col-6 position-static">
+                <div class="header-right">
+                  <div class="header-btn">
+                    {% if user.is_authenticated %}
+                    <div
+                      class="dropdown"
+                      style="display: inline-block; position: relative"
+                    >
+                      <button
+                        style="
+                          background: none;
+                          border: none;
+                          color: white;
+                          font-weight: bold;
+                          cursor: pointer;
+                        "
+                        onclick="toggleDropdown()"
+                      >
+                        <a class="rainbow-gradient-btn"
+                          ><span>{{ user.username }}</span></a
+                        >
+                      </button>
+                      <div
+                        id="dropdown-menu"
+                        class="dropdown-menu"
+                        style="
+                          display: none;
+                          position: absolute;
+                          right: -1rem;
+                          top: 0rem;
+                          background: #222;
+                          color: white;
+                          width: 300px;
+                          font-family: 'Montserrat Alternates' !important;
+                          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+                          z-index: 1000;
+                          transition: all 0.3s ease-in-out;
+                        "
+                      >
+                        <a
+                          style="
+                            display: block;
+                            padding: 10px 20px;
+                            font-size: 1.5rem;
+                            color: white;
+                            font-weight: 1000;
+                            text-decoration: none;
+                          "
+                        
+                          >Welcome {{ user.username }}</a
+                        >
+                        <div style="padding: 10px 20px;  font-size: 1.5rem; font-weight: 700; display: flex;">
+                          Credits: {{ user.credits }} <a
+                          href="/buy-credits/"
+                          style="
+                            display: block;
+                            padding-left: 20px;
+                            font-size: 1.5rem;
+                            color: #b080fb;
+                            font-weight: 1000;
+                            text-decoration: none;
+                          "
+                        >Buy Credits</a>
+                        </div>
+                       
+                        <a
+                          href="/account/"
+                          style="
+                            display: block;
+                            padding: 10px 20px;
+                            font-size: 1.5rem;
+                            color: white;
+                            font-weight: 1000;
+                            text-decoration: none;
+                          "
+                          >Account Settings</a
+                        >
+                        <form
+                          id="logout-form"
+                          action="/logout/"
+                          method="post"
+                          style="margin: 0"
+                        >
+                          {% csrf_token %}
+                          <button
+                            type="submit"
+                            style="
+                              background: none;
+                              border: none;
+                              color: white;
+                              font-weight: 1000;
+                              width: 100%;
+                              font-size: 1.5rem;
+                              text-align: left;
+                              padding: 10px 20px;
+                              cursor: pointer;
+                            "
+                          >
+                            Logout
+                          </button>
+                        </form>
+                      </div>
+                    </div>
+                    <script>
+                      function toggleDropdown() {
+                        var menu = document.getElementById("dropdown-menu");
+                        menu.style.display =
+                          menu.style.display === "block" ? "none" : "block";
+                      }
+                      document.addEventListener("click", function (event) {
+                        var dropdown = document.querySelector(".dropdown");
+                        if (dropdown && !dropdown.contains(event.target)) {
+                          var menu = document.getElementById("dropdown-menu");
+                          if (menu) menu.style.display = "none";
+                        }
+                      });
+                    </script>
+                    {% else %}
+                    <a class="rainbow-gradient-btn" href="/login"
+                      ><span>Login</span></a
+                    >
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <div
+          class="slider-area slider-style-1 variation-default slider-bg-image bg-banner1 slider-bg-shape"
+          data-black-overlay="1"
+        >
+          <div class="container">
+            <div class="row justify-content-center">
+              <div class="col-lg-12">
+                <div class="inner text-center mt--140">
+                  <h1 class="title display-one">
+                    What would you like to <br /><b class="theme-gradient">
+                      visualize
+                    </b>
+                    today?
+                  </h1>
+                  <br />
+                  <form class="form-group" action="/generate/" method="get">
+                    <textarea
+                      id="input"
+                      name="input"
+                      cols="30"
+                      rows="2"
+                      placeholder="Describe your problem..."
+                    ></textarea
+                    ><button class="btn-default" type="submit">Generate</button>
+                  </form>
+
+                  <div class="inner-shape">
+                    <img
+                      alt="Icon Shape"
+                      loading="lazy"
+                      width="100"
+                      height="95"
+                      decoding="async"
+                      data-nimg="1"
+                      class="iconshape iconshape-one"
+                      style="color: transparent"
+                      src="/static/video_generator/media/icon-shape-one.png"
+                    /><img
+                      alt="Icon Shape"
+                      loading="lazy"
+                      width="60"
+                      height="57"
+                      decoding="async"
+                      data-nimg="1"
+                      class="iconshape iconshape-two"
+                      style="color: transparent"
+                      src="/static/video_generator/media/icon-shape-two.png"
+                    /><img
+                      alt="Icon Shape"
+                      loading="lazy"
+                      width="42"
+                      height="31"
+                      decoding="async"
+                      data-nimg="1"
+                      class="iconshape iconshape-three"
+                      style="color: transparent"
+                      src="/static/video_generator/media/icon-shape-three.png"
+                    /><img
+                      alt="Icon Shape"
+                      loading="lazy"
+                      width="100"
+                      height="95"
+                      decoding="async"
+                      data-nimg="1"
+                      class="iconshape iconshape-four"
+                      style="color: transparent"
+                      src="/static/video_generator/media/icon-shape-four.png"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {% if video_url %}
+              <div
+                class="slider-frame"
+                style="
+                  background: url('/static/video_generator/media/slider-main-bg.png');
+                  background-size: contain;
+                  background-repeat: no-repeat;
+                  padding: 70px;
+                  width: 100%;
+                  z-index: 3;
+                  justify-content: center;
+                  align-items: center;
+                  margin-top: 60px;
+                  overflow: hidden;
+                  position: relative;
+                "
+              >
+                <video style="width: 100%" controls loop playsinline>
+                  <source src="{{ video_url }}" type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+              {% endif %} {% if error %}
+              <h2 style="color: red">Error:</h2>
+              <p>{{ error }}</p>
+              <p>{{ details }}</p>
+              {% endif %}
+            </div>
+          </div>
+
+          <div class="bg-shape">
+            <img
+              alt="Bg Shape"
+              loading="lazy"
+              width="640"
+              height="949"
+              decoding="async"
+              data-nimg="1"
+              class="bg-shape-one"
+              style="color: transparent"
+              src="/static/video_generator/media/bg-shape-four.png"
+            /><img
+              alt="Bg Shape"
+              loading="lazy"
+              width="626"
+              height="1004"
+              decoding="async"
+              data-nimg="1"
+              class="bg-shape-two"
+              style="color: transparent"
+              src="/static/video_generator/media/bg-shape-five.png"
+            />
+          </div>
+        </div>
+      </main>
+      <div class="rbt-progress-parent">
+        <svg
+          class="rbt-back-circle svg-inner"
+          width="100%"
+          height="100%"
+          viewBox="-1 -1 102 102"
+        >
+          <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" />
+        </svg>
+      </div>
+    </div>
+  </body>
+</html>

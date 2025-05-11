@@ -1,0 +1,175 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DeepDive Signup</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        body {
+            background-color: #1a1a1a;
+            color: white;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+        }
+        .login-container {
+            display: flex;
+            width: 90%;
+            max-width: 1200px;
+            height: 650px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        .login-form {
+            width: 40%;
+            padding: 30px;
+            background-color: #1a1a1a;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            overflow-y: auto;
+        }
+        .login-image {
+            width: 60%;
+            background: linear-gradient(135deg, #6ef78a 0%, #6ef7d6 100%);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .geometric-shape {
+            position: absolute;
+            bottom: 5%;
+            right: 15%;
+            width: 70%;
+            height: 60%;
+            background: linear-gradient(135deg, #5bf78c 0%, #5bf7d4 100%);
+            transform: perspective(800px) rotateX(30deg) rotateY(-20deg);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+        }
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            font-weight: normal;
+        }
+        p {
+            color: #b0b0b0;
+            margin-bottom: 20px;
+            line-height: 1.4;
+            font-size: 0.9rem;
+        }
+        .form-group {
+            margin-bottom: 12px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #b0b0b0;
+            font-size: 0.9rem;
+        }
+        input {
+            width: 100%;
+            padding: 10px 15px;
+            border-radius: 10px;
+            border: 1px solid #a56ef7;
+            background-color: #18181b;
+            color: #fff;
+            font-size: 1rem;
+        }
+        .sign-in-btn {
+            width: 100%;
+            padding: 10px;
+            border-radius: 10px;
+            border: none;
+            background-color: #a56ef7;
+            color: white;
+            font-size: 0.95rem;
+            cursor: pointer;
+            margin-bottom: 15px;
+            font-weight: normal;
+        }
+        .signup-link {
+            text-align: center;
+            margin-top: 10px;
+        }
+        .signup-link p {
+            margin-bottom: 0;
+            font-size: 0.85rem;
+            color: #b0b0b0;
+        }
+        .signup-link a {
+            color: white;
+            text-decoration: none;
+        }
+        .animated {
+            animation-duration: 1s;
+            animation-fill-mode: both;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .fadeIn {
+            animation-name: fadeIn;
+        }
+    </style>
+</head>
+<body class="animated fadeIn">
+    <div class="login-container animated fadeInUp">
+        <div class="login-form">
+            <h1 class="animated fadeInDown">Welcome to DeepDive</h1>
+            <p>A state-of-the-art mathematical explanatory video generation app.</p>
+            <form method="post" class="animated fadeInLeft">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="id_username">Username</label>
+                    {{ form.username }}
+                    {% if form.username.errors %}
+                        <div style="color: #ffb3b3; font-size: 0.85rem;">{{ form.username.errors|striptags }}</div>
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <label for="id_email">Email</label>
+                    {{ form.email }}
+                    {% if form.email.errors %}
+                        <div style="color: #ffb3b3; font-size: 0.85rem;">{{ form.email.errors|striptags }}</div>
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <label for="id_password1">Password</label>
+                    {{ form.password1 }}
+                    {% if form.password1.errors %}
+                        <div style="color: #ffb3b3; font-size: 0.85rem;">{{ form.password1.errors|striptags }}</div>
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <label for="id_password2">Confirm Password</label>
+                    {{ form.password2 }}
+                    {% if form.password2.errors %}
+                        <div style="color: #ffb3b3; font-size: 0.85rem;">{{ form.password2.errors|striptags }}</div>
+                    {% endif %}
+                </div>
+                <button class="sign-in-btn animated bounceIn" type="submit">Sign Up</button>
+            </form>
+            <div class="signup-link">
+                <p class="animated fadeInRight">Already have an account? <a href="{% url 'login' %}" class="animated pulse">Login here</a>.</p>
+            </div>
+        </div>
+        <div class="login-image">
+            <div class="geometric-shape"></div>
+        </div>
+    </div>
+</body>
+</html>

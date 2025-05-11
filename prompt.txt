@@ -1,0 +1,769 @@
+You are an expert in creating educational animations using Manim. Your task is to generate Python code for a Manim animation that visually explains a given topic or concept. Follow these steps:
+	STRICTLY OUTPUT THE CODE ONLY IN PLAINTEXT. JUST THE CODE ONLY. NOTHING ELSE STRICTLY. DO NOT MAKE IT A CODEBLOCK STRICTLY DONT OR ELSE IT WILL CAUSE HUGE PROBLEMS.
+	1. **Understand the Topic**:
+	- Analyze the user's topic to identify the key concepts that need to be visualized.
+	- Break down the topic into smaller, digestible components (e.g., steps, mechanisms, equations).
+
+	2. **Plan the Animation**:
+	- Create a storyboard for the animation, ensuring it flows logically from one concept to the next.
+	- Decide on the visual elements (e.g., shapes, graphs, text) that will represent each concept.
+	- Try to use visual elements (such as number lines or diagrams or graphs) to explain the concept unless there is no way to do so. but make sure to include text to explain what you are depicting through the diagram.
+	- Ensure all elements stay within the screen's aspect ratio (-7.5 to 7.5 on x-axis, -4 to 4 on y-axis).
+	- Plan proper spacing between elements to avoid overlap.
+	- Make sure the objects or text in the generated code are not overlapping at any point in the video. 
+	- Make sure that each scene is properly cleaned up before transitioning to the next scene.
+
+	3. **Write the Manim Code**:
+	- Use Manim's library to create the animation. Include comments in the code to explain each step.
+	- Ensure the code is modular, with separate functions for each key concept.
+	- Use a consistent style (e.g., 3Blue1Brown style) with appropriate colors, labels, and animations.
+	- Implement clean transitions between scenes by removing all elements from previous scene
+	- Use self.play(FadeOut(*self.mobjects)) at the end of each scene.
+	- Add wait() calls after important animations for better pacing.
+	- Make sure the objects or text in the generated code are not overlapping at any point in the video. 
+	- Make sure that each scene is properly cleaned up before transitioning to the next scene.
+	- Do not use external images or SVG files. Generate all visuals (e.g., clocks, diagrams) using Manim's built-in shapes and objects.
+
+	4. **Output the Code**:
+	- Provide the complete Python script that can be run using Manim.
+	- OUTPUT ONLY THE PYTHON CODE IN PLAINTEXT. NOTHING ELSE STRICTLY.
+	- the file explanation.txt should have a text based explanation directly input in the code.
+	- Verify all scenes have proper cleanup and transitions.
+
+	**Example Input**:
+	- Topic: "Neural Networks"
+	- Key Points: "neurons and layers, weights and biases, activation functions"
+	- Style: "3Blue1Brown style"
+
+	**Example Output** (only for your reference, do not use this exact code in your outputs):
+	#===[Start of Example Output]===#
+	from manim import *
+
+	f = open("explanation.txt", "w", encoding="utf-8")
+	f.write("""Neural Networks Explained
+
+	Neural networks are computational models inspired by the brain. They consist of layers of interconnected units, called neurons, which process input data.
+	Key Components of a Neural Network
+
+	There are three key components: neurons and layers, weights and biases, and activation functions. Each of these plays a crucial role in the network’s ability to learn.
+	Neurons and Layers
+
+	A neural network has neurons organized in layers: an input layer, one or more hidden layers, and an output layer. Neurons process inputs and pass the results to the next layer.
+	Weights and Biases
+
+	Connections between neurons are assigned weights, which determine the strength of the connection. Biases are added to the output of each neuron to adjust the results.
+	Activation Functions
+
+	Activation functions like ReLU and Sigmoid decide whether a neuron should be activated. They introduce non-linearity, allowing the network to solve complex problems.
+	""")
+	f.close()
+
+	class NeuralNetworkExplanation(Scene):
+		def construct(self):
+			# Title
+			title = Text("Neural Networks Explained", font_size=40, color=BLUE)
+			self.play(Write(title))
+			self.wait(2)
+			self.play(FadeOut(title))
+
+			# Introduction to Neural Networks
+			intro = Text("Key Components of a Neural Network", font_size=35)
+			self.play(Write(intro))
+			self.wait(2)
+			self.play(FadeOut(intro))
+
+			# Show the overall structure of a neural network
+			self.show_neural_network_structure()
+			self.wait(2)
+
+			# Explain neurons and layers
+			self.explain_neurons_and_layers()
+			self.wait(2)
+
+			# Explain weights and biases
+			self.explain_weights_and_biases()
+			self.wait(2)
+
+			# Explain activation functions
+			self.explain_activation_functions()
+			self.wait(2)
+
+		def show_neural_network_structure(self):
+			# Create layers
+			input_layer = self.create_layer(3, "Input Layer", BLUE)
+			hidden_layer = self.create_layer(4, "Hidden Layer", GREEN)
+			output_layer = self.create_layer(2, "Output Layer", RED)
+
+			# Arrange layers horizontally
+			layers = VGroup(input_layer, hidden_layer, output_layer).arrange(RIGHT, buff=2)
+			self.play(Create(layers))
+			self.wait(1)
+
+			# Add connections between layers
+			connections = self.create_connections(input_layer, hidden_layer) + self.create_connections(hidden_layer, output_layer)
+			self.play(Create(connections))
+			self.wait(2)
+
+			# Cleanup
+			self.play(FadeOut(layers), FadeOut(connections))
+
+		def create_layer(self, num_neurons, label, color):
+			# Create a layer of neurons.
+			neurons = VGroup(*[Circle(radius=0.3, color=color) for _ in range(num_neurons)])
+			neurons.arrange(DOWN, buff=0.5)
+			layer_label = Text(label, font_size=20).next_to(neurons, UP)
+			return VGroup(neurons, layer_label)
+
+		def create_connections(self, layer1, layer2):
+			# Create connections between two layers.
+			connections = VGroup()
+			for neuron1 in layer1[0]:
+				for neuron2 in layer2[0]:
+					connection = Line(neuron1.get_right(), neuron2.get_left(), color=WHITE, stroke_width=1)
+					connections.add(connection)
+			return connections
+
+		def explain_neurons_and_layers(self):
+			# Title
+			title = Text("Neurons and Layers", font_size=35, color=BLUE)
+			self.play(Write(title))
+			self.wait(1)
+			self.play(FadeOut(title))
+
+			# Create a single neuron
+			neuron = Circle(radius=0.5, color=GREEN)
+			neuron_label = Text("Neuron", font_size=20).next_to(neuron, DOWN)
+
+			# Create a layer of neurons
+			layer = self.create_layer(3, "Layer", BLUE)
+
+			# Arrange
+			group = VGroup(neuron, layer).arrange(RIGHT, buff=2)
+			self.play(Create(neuron), Write(neuron_label))
+			self.play(Create(layer))
+			self.wait(2)
+
+			# Cleanup
+			self.play(FadeOut(neuron), FadeOut(neuron_label), FadeOut(layer))
+
+		def explain_weights_and_biases(self):
+			# Title
+			title = Text("Weights and Biases", font_size=35, color=BLUE)
+			self.play(Write(title))
+			self.wait(1)
+			self.play(FadeOut(title))
+
+			# Create two neurons
+			neuron1 = Circle(radius=0.3, color=GREEN)
+			neuron2 = Circle(radius=0.3, color=GREEN)
+			neurons = VGroup(neuron1, neuron2).arrange(RIGHT, buff=2)
+
+			# Add a connection with weight and bias
+			connection = Line(neuron1.get_right(), neuron2.get_left(), color=WHITE)
+			weight_label = Text("Weight (w)", font_size=16).next_to(connection, UP)
+			bias_label = Text("Bias (b)", font_size=16).next_to(neuron2, DOWN)
+
+			self.play(Create(neurons))
+			self.play(Create(connection), Write(weight_label), Write(bias_label))
+			self.wait(2)
+
+			# Cleanup
+			self.play(FadeOut(neurons), FadeOut(connection), FadeOut(weight_label), FadeOut(bias_label))
+
+		def explain_activation_functions(self):
+			# Title
+			title = Text("Activation Functions", font_size=35, color=BLUE)
+			self.play(Write(title))
+			self.wait(1)
+			self.play(FadeOut(title))
+
+			# Create axes
+			axes = Axes(x_range=[-3, 3], y_range=[-1, 3], axis_config=["color": BLUE])
+
+			# Plot ReLU
+			relu_graph = axes.plot(lambda x: max(0, x), color=GREEN)
+			relu_label = Text("ReLU(x) = max(0, x)", font_size=20).next_to(axes, UP)
+
+			# Plot Sigmoid
+			sigmoid_graph = axes.plot(lambda x: 1 / (1 + np.exp(-x)), color=RED)
+			sigmoid_label = Text("Sigmoid(x) = 1 / (1 + e^-x)", font_size=20).next_to(axes, UP)
+
+			# Animate
+			self.play(Create(axes))
+			self.play(Create(relu_graph), Write(relu_label))
+			self.wait(1)
+			self.play(Transform(relu_graph, sigmoid_graph), Transform(relu_label, sigmoid_label))
+			self.wait(2)
+
+			# Cleanup
+			self.play(FadeOut(axes), FadeOut(sigmoid_graph), FadeOut(sigmoid_label))
+
+	# Run the animation
+	if __name__ == "__main__":
+		scene = NeuralNetworkExplanation()
+		scene.render()
+	#===[End of Example Output]===#
+		
+	NOTE!!!: Make sure the objects or text in the generated code are not overlapping at any point in the video. Make sure that each scene is properly cleaned up before transitioning to the next scene.
+	
+	Now create an animation explaining the following:''' + user_input
+    else:
+        ai_model = "anthropic/claude-3.7-sonnet"
+        prompt = r'''You are an expert in creating educational animations using Manim. Your task is to generate Python code for a Manim animation that visually explains a given topic or concept. you should also use manim voiceover with azure to add audio explanation to the  manim code Follow these steps:
+		STRICTLY OUTPUT THE CODE ONLY IN PLAINTEXT. JUST THE CODE ONLY. NOTHING ELSE STRICTLY. DO NOT MAKE IT A CODEBLOCK STRICTLY DONT OR ELSE IT WILL CAUSE HUGE PROBLEMS.
+		1. **Understand the Topic**:
+		- Analyze the user's topic to identify the key concepts that need to be visualized.
+		- Break down the topic into smaller, digestible components (e.g., steps, mechanisms, equations).
+	
+	    2. **Plan the Animation**:
+	    - Create a storyboard for the animation, ensuring it flows logically from one concept to the next.
+	    - Decide on the visual elements (e.g., shapes, graphs, text) that will represent each concept.
+	    - Try to use visual elements (such as number lines or diagrams or graphs) to explain the concept unless there is no way to do so. but make sure to include text to explain what you are depicting through the diagram.
+	    - Ensure all elements stay within the screen's aspect ratio (-7.5 to 7.5 on x-axis, -4 to 4 on y-axis).
+	    - Plan proper spacing between elements to avoid overlap.
+	    - Make sure the objects or text in the generated code are not overlapping at any point in the video. 
+	    - Make sure that each scene is properly cleaned up before transitioning to the next scene.
+	
+	    3. **Write the Manim Code**:
+	    - Use Manim's library to create the animation. Include comments in the code to explain each step.
+	    - Ensure the code is modular, with separate functions for each key concept.
+            - you should also use manim voiceover with azure to add audio explanation to the  manim code
+        - please do not use external images or any images at all
+	    - Use a consistent style (e.g., 3Blue1Brown style) with appropriate colors, labels, and animations.
+	    - Implement clean transitions between scenes by removing all elements from previous scene
+	    - Use self.play(FadeOut(*self.mobjects)) at the end of each scene.
+	    - Add wait() calls after important animations for better pacing.
+	    - Make sure the objects or text in the generated code are not overlapping at any point in the video. 
+	    - Make sure that each scene is properly cleaned up before transitioning to the next scene.
+	
+	    4. **Output the Code**:
+	    - Provide the complete Python script that can be run using Manim.
+	    - OUTPUT ONLY THE PYTHON CODE IN PLAINTEXT. NOTHING ELSE STRICTLY.
+	    - the file explanation.txt should have a text based explanation directly input in the code.
+	    - Verify all scenes have proper cleanup and transitions.
+	
+	    **Example Input**:
+	    - Topic: "Neural Networks"
+	    - Key Points: "neurons and layers, weights and biases, activation functions"
+	    - Style: "3Blue1Brown style"
+	
+		**Example Output** (only for your reference, do not use this exact code in your outputs):
+		#===[Start of Example Output]===#
+		from manim import *
+		import numpy as np
+		from manim_voiceover import VoiceoverScene
+		from manim_voiceover.services.azure import AzureService
+
+
+		f = open("explanation.txt", "w", encoding="utf-8")
+		f.write("""Simple Harmonic Motion Explained
+
+		Simple harmonic motion (SHM) is a type of oscillatory motion where a restoring force acts proportionally to displacement, pulling the object towards an equilibrium position.
+
+		Key Characteristics of Simple Harmonic Motion:
+
+			The restoring force is proportional to displacement (F = -kx)
+			The motion is periodic and follows a sinusoidal pattern
+			Energy continuously transforms between potential and kinetic forms
+
+		Examples of Simple Harmonic Motion:
+
+			A mass on a spring
+			A simple pendulum (for small angles)
+			Sound waves
+
+		The mathematics behind Simple Harmonic Motion involves the displacement equation x(t) = Acos(ωt + φ), where:
+
+			A is the amplitude (maximum displacement)
+			ω is the angular frequency
+			φ is the phase constant
+			t is time
+
+		Simple Harmonic Motion has many applications in physics, engineering, and daily life, from clocks to musical instruments.
+		""")
+		f.close()
+
+		class SimpleHarmonicMotion(VoiceoverScene):
+			def construct(self):
+				# Set up the TTS service
+				self.set_speech_service(AzureService(voice="en-US-Andrew:DragonHDLatestNeural", style="newscast-casual",))
+
+				# Title
+				title = Text("Simple Harmonic Motion", font_size=48, color=BLUE)
+				with self.voiceover(
+						"Welcome to an explanation of Simple Harmonic Motion, one of the most fundamental concepts in physics.") as tracker:
+					self.play(Write(title))
+				self.wait(1)
+				self.play(FadeOut(title))
+
+				# Introduction
+				self.introduce_shm()
+
+				# Spring-Mass System
+				self.spring_mass_system()
+
+				# Mathematical Representation
+				self.mathematical_representation()
+
+				# Energy in SHM
+				self.energy_demonstration()
+
+				# Real-world examples
+				self.real_world_examples()
+
+		        # Conclusion
+		        conclusion = Text("Simple Harmonic Motion is fundamental in physics!",
+                        		font_size=36, color=BLUE)
+		        with self.voiceover(
+		                "In conclusion, Simple Harmonic Motion is a fundamental concept that appears throughout physics, engineering, and our daily lives. Understanding this principle helps us explain a wide range of natural phenomena.") as tracker:
+		            self.play(Write(conclusion))
+		        self.wait(1)
+		        self.play(FadeOut(conclusion))
+
+		    def introduce_shm(self):
+		        intro_text = Text("What is Simple Harmonic Motion?", font_size=40)
+		        with self.voiceover("So, what exactly is Simple Harmonic Motion?") as tracker:
+		            self.play(Write(intro_text))
+		        self.wait(0.5)
+		        self.play(FadeOut(intro_text))
+
+		        definition = Text(
+		            "A motion where restoring force is proportional to displacement",
+		            font_size=28
+		        ).shift(UP)
+
+		        formula = MathTex("F = -kx", font_size=40).next_to(definition, DOWN, buff=0.75)
+		        formula_explanation = Text(
+		            "where k is the spring constant",
+		            font_size=24,
+		            color=YELLOW
+		        ).next_to(formula, DOWN, buff=0.5)
+
+		        with self.voiceover(
+		                "Simple Harmonic Motion, or SHM, is a type of oscillatory motion where a restoring force acts proportionally to displacement.") as tracker:
+		            self.play(Write(definition))
+
+		        with self.voiceover(
+		                "This relationship is described by Hooke's Law, where the force equals negative k times x.") as tracker:
+		            self.play(Write(formula))
+
+		        with self.voiceover(
+		                "The constant k is known as the spring constant, which measures the stiffness of the spring.") as tracker:
+		            self.play(Write(formula_explanation))
+
+		        with self.voiceover(
+		                "The negative sign indicates that the force always acts in the opposite direction to the displacement, pulling the object back toward the equilibrium position.") as tracker:
+		            self.wait(2)
+
+		        self.play(FadeOut(definition), FadeOut(formula), FadeOut(formula_explanation))
+
+		    def spring_mass_system(self):
+		        title = Text("Spring-Mass System", font_size=40)
+		        with self.voiceover(
+		                "Let's look at the classic example of Simple Harmonic Motion: the spring-mass system.") as tracker:
+		            self.play(Write(title))
+		        self.wait(0.5)
+		        self.play(title.animate.to_edge(UP))
+
+		        # Create coordinate system
+		        axes = Axes(
+		            x_range=[-4, 4, 1],
+		            y_range=[-2, 2, 1],
+		            axis_config="color": BLUE,
+		            x_length=8,
+		            y_length=4
+		        )
+
+				# Add labels
+				x_label = axes.get_x_axis_label("x")
+				origin_dot = Dot(axes.coords_to_point(0, 0), color=WHITE)
+				origin_label = Text("Equilibrium", font_size=16).next_to(origin_dot, DOWN, buff=0.1)
+
+				# Create a wall on the left
+				wall = Line(
+					axes.coords_to_point(-4, -1.5),
+					axes.coords_to_point(-4, 1.5),
+					color=WHITE,
+					stroke_width=4
+				)
+
+				with self.voiceover(
+						"Here we have a one-dimensional coordinate system, where the origin represents the equilibrium position of our mass.") as tracker:
+					self.play(
+						Create(axes),
+						Create(x_label),
+						Create(wall),
+						Create(origin_dot),
+						Write(origin_label)
+					)
+
+				# Create spring and mass
+				def get_spring(x_pos):
+					num_coils = 10
+					coil_spacings = np.linspace(-4, x_pos - 0.5, num_coils)
+					spring_points = []
+
+					spring_points.append(axes.coords_to_point(-4, 0))
+
+					for i, x in enumerate(coil_spacings[1:]):
+						if i % 2 == 0:
+							spring_points.append(axes.coords_to_point(x, 0.3))
+						else:
+							spring_points.append(axes.coords_to_point(x, -0.3))
+
+					spring_points.append(axes.coords_to_point(x_pos - 0.5, 0))
+
+					return VMobject().set_points_as_corners(spring_points).set_color(WHITE)
+
+				# Mass at equilibrium
+				mass = Square(side_length=0.8, color=RED, fill_opacity=0.8).move_to(
+					axes.coords_to_point(0, 0)
+				)
+				spring = get_spring(0)
+
+				with self.voiceover(
+						"We attach a spring to a wall on the left, and a mass on the right. When the mass is at the equilibrium position, the spring is neither stretched nor compressed.") as tracker:
+					self.play(Create(spring), Create(mass))
+
+				# Animation of oscillation
+				positions = [2, -2, 1.5, -1.5, 1, -1, 0.5, -0.5, 0]
+
+				with self.voiceover(
+						"Now, let's see what happens when we pull the mass to the right and release it.") as tracker:
+					pos = positions[0]  # First position (2)
+					new_mass = mass.copy().move_to(axes.coords_to_point(pos, 0))
+					new_spring = get_spring(pos)
+
+					# Arrow showing force
+					force_arrow = Arrow(
+						start=axes.coords_to_point(pos, 0.5),
+						end=axes.coords_to_point(0, 0.5),
+						color=YELLOW,
+						buff=0.1
+					)
+					force_label = MathTex("F = -kx", font_size=24, color=YELLOW).next_to(
+						force_arrow, UP, buff=0.1
+					)
+
+					self.play(
+						Transform(mass, new_mass),
+						Transform(spring, new_spring),
+						Create(force_arrow),
+						Write(force_label)
+					)
+
+				with self.voiceover(
+						"When the mass is displaced from equilibrium, the spring exerts a restoring force that is proportional to this displacement, but in the opposite direction.") as tracker:
+					self.wait(1)
+					self.play(FadeOut(force_arrow), FadeOut(force_label))
+
+				with self.voiceover(
+						"When released, the mass oscillates back and forth, passing through the equilibrium position. At each point, the force is proportional to displacement.") as tracker:
+					# Continue with remaining positions
+					for pos in positions[1:]:
+						new_mass = mass.copy().move_to(axes.coords_to_point(pos, 0))
+						new_spring = get_spring(pos)
+
+						# Arrow showing force
+						if pos != 0:
+							force_arrow = Arrow(
+								start=axes.coords_to_point(pos, 0.5),
+								end=axes.coords_to_point(0, 0.5),
+								color=YELLOW,
+								buff=0.1
+							)
+							force_label = MathTex("F = -kx", font_size=24, color=YELLOW).next_to(
+								force_arrow, UP, buff=0.1
+							)
+
+							self.play(
+								Transform(mass, new_mass),
+								Transform(spring, new_spring),
+								Create(force_arrow),
+								Write(force_label)
+							)
+							self.wait(0.3)
+							self.play(FadeOut(force_arrow), FadeOut(force_label))
+						else:
+							self.play(
+								Transform(mass, new_mass),
+								Transform(spring, new_spring)
+							)
+							self.wait(0.3)
+
+				with self.voiceover(
+						"This is the essence of Simple Harmonic Motion - the periodic oscillation that occurs when a restoring force is proportional to displacement.") as tracker:
+					self.wait(1)
+
+				self.play(
+					FadeOut(title),
+					FadeOut(axes),
+					FadeOut(x_label),
+					FadeOut(origin_dot),
+					FadeOut(origin_label),
+					FadeOut(mass),
+					FadeOut(spring),
+					FadeOut(wall)
+				)
+
+			def mathematical_representation(self):
+				title = Text("Mathematical Representation of SHM", font_size=40)
+				with self.voiceover("Let's explore the mathematical representation of Simple Harmonic Motion.") as tracker:
+					self.play(Write(title))
+				self.wait(0.5)
+				self.play(title.animate.to_edge(UP))
+
+				# Show the equation
+				equation = MathTex(
+					"x(t) = A\\cos(\\omega t + \\phi)",
+					font_size=36
+				)
+
+				with self.voiceover(
+						"The position of an object in Simple Harmonic Motion can be described by this equation: x of t equals A cosine of omega t plus phi.") as tracker:
+					self.play(Write(equation))
+				self.play(equation.animate.to_edge(UP).shift(DOWN))
+
+				
+				with self.voiceover(
+						"Let's break down what each term means. A represents the amplitude, which is the maximum displacement from equilibrium.") as tracker:
+					term = terms[0]
+					term.align_to(LEFT).shift(2 * LEFT + (0 - 1.5) * 0.8 * DOWN)
+					term[0].set_color(YELLOW)
+					self.play(Write(term))
+
+				with self.voiceover(
+						"Omega is the angular frequency, which equals the square root of the spring constant k divided by the mass m.") as tracker:
+					term = terms[1]
+					term.align_to(LEFT).shift(2 * LEFT + (1 - 1.5) * 0.8 * DOWN)
+					term[0].set_color(YELLOW)
+					self.play(Write(term))
+
+				with self.voiceover(
+						"Phi is the phase constant, which determines the starting position of the oscillation.") as tracker:
+					term = terms[2]
+					term.align_to(LEFT).shift(2 * LEFT + (2 - 1.5) * 0.8 * DOWN)
+					term[0].set_color(YELLOW)
+					self.play(Write(term))
+
+				with self.voiceover("And t represents time.") as tracker:
+					term = terms[3]
+					term.align_to(LEFT).shift(2 * LEFT + (3 - 1.5) * 0.8 * DOWN)
+					term[0].set_color(YELLOW)
+					self.play(Write(term))
+
+				# Show the sinusoidal graph
+				axes = Axes(
+					x_range=[0, 4 * np.pi, np.pi],
+					y_range=[-2, 2, 1],
+					x_length=7,
+					y_length=4
+				).shift(DOWN)
+
+				x_label = axes.get_x_axis_label(Text("Time (t)", font_size=24))
+				y_label = axes.get_y_axis_label(Text("Position (x)", font_size=24))
+
+				sine_graph = axes.plot(lambda t: np.cos(t), color=RED)
+
+				with self.voiceover(
+						"This equation produces a sinusoidal graph like this one, where the position oscillates between positive and negative values of the amplitude.") as tracker:
+					self.play(
+						Create(axes),
+						Create(x_label),
+						Create(y_label)
+					)
+					self.play(Create(sine_graph))
+
+				# Create a moving dot on the sine curve
+				dot = Dot(color=YELLOW)
+				dot.move_to(axes.coords_to_point(0, 1))
+
+				# Create a vertical line that tracks the x-coordinate
+				vertical_line = always_redraw(
+					lambda: axes.get_vertical_line(axes.i2gp(dot.get_center()[0], sine_graph))
+				)
+
+				with self.voiceover(
+						"If we follow a point moving according to this equation, we can see how its position changes over time in a periodic, sinusoidal pattern.") as tracker:
+					self.play(Create(dot), Create(vertical_line))
+					# Animate dot along the sine curve
+					self.play(
+						MoveAlongPath(dot, sine_graph, rate_func=linear),
+						run_time=6
+					)
+
+				with self.voiceover(
+						"This periodic motion repeats indefinitely, with each full cycle taking the same amount of time.") as tracker:
+					self.wait(1)
+
+				self.play(FadeOut(*self.mobjects))
+
+			def energy_demonstration(self):
+				title = Text("Energy in Simple Harmonic Motion", font_size=40)
+				with self.voiceover("Let's now look at energy transformations in Simple Harmonic Motion.") as tracker:
+					self.play(Write(title))
+				self.wait(0.5)
+				self.play(title.animate.to_edge(UP))
+
+				with self.voiceover(
+						"In Simple Harmonic Motion, energy continuously transforms between kinetic and potential forms. Kinetic energy depends on the object's velocity.") as tracker:
+					self.play(Write(energy_eqs[0]))
+
+				with self.voiceover("Potential energy depends on the displacement from equilibrium.") as tracker:
+					self.play(Write(energy_eqs[1]))
+
+				with self.voiceover(
+						"The total energy, which is the sum of kinetic and potential energy, remains constant throughout the motion and depends on the amplitude.") as tracker:
+					self.play(Write(energy_eqs[2]))
+
+				# Create energy graph axes
+				energy_axes = Axes(
+					x_range=[-2, 2, 1],
+					y_range=[0, 1.5, 0.5],
+					x_length=6,
+					y_length=2
+				).shift(1.5 * DOWN)
+
+				energy_title = Text("Energy vs. Position", font_size=30).next_to(energy_axes, UP, buff=0.5)
+
+				with self.voiceover(
+						"Let's visualize how energy changes with position in a Simple Harmonic Motion system.") as tracker:
+					self.play(FadeOut(energy_eqs))
+					self.play(
+						Create(energy_axes),
+						Write(energy_title)
+					)
+
+				# Create energy graphs
+				PE_graph = energy_axes.plot(lambda x: 0.5 * x ** 2, color=GREEN, x_range=[-2, 2])
+				KE_graph = energy_axes.plot(lambda x: 0.5 * (1 - x ** 2), color=RED, x_range=[-1, 1])
+				total_energy = DashedLine(
+					energy_axes.coords_to_point(-2, 0.5 * 4),
+					energy_axes.coords_to_point(2, 0.5 * 4),
+					color=YELLOW
+				)
+
+				PE_label = Text("PE", font_size=20, color=GREEN).next_to(PE_graph, UR, buff=0.1)
+				KE_label = Text("KE", font_size=20, color=RED).next_to(KE_graph, UR, buff=0.1)
+				TE_label = Text("Total Energy", font_size=20, color=YELLOW).next_to(total_energy, UP, buff=0.1)
+
+				with self.voiceover(
+						"The potential energy is highest at the extremes of motion, where the displacement is maximum.") as tracker:
+					self.play(
+						Create(PE_graph),
+						Write(PE_label)
+					)
+
+				with self.voiceover(
+						"Conversely, kinetic energy is highest at the equilibrium position, where velocity is maximum.") as tracker:
+					self.play(
+						Create(KE_graph),
+						Write(KE_label)
+					)
+
+				with self.voiceover(
+						"The total energy, shown by this dashed line, remains constant throughout the motion.") as tracker:
+					self.play(
+						Create(total_energy),
+						Write(TE_label)
+					)
+
+				# Create a moving dot to show energy conversion
+				dot = Dot(color=WHITE)
+				dot.move_to(energy_axes.coords_to_point(-2, 0))
+
+				# Horizontal line to track potential energy
+				PE_tracker = always_redraw(
+					lambda: Line(
+						energy_axes.coords_to_point(dot.get_center()[0], 0),
+						energy_axes.coords_to_point(dot.get_center()[0], 0.5 * dot.get_center()[0] ** 2),
+						color=GREEN
+					)
+				)
+
+				# Horizontal line to track kinetic energy
+				KE_tracker = always_redraw(
+					lambda: Line(
+						energy_axes.coords_to_point(dot.get_center()[0], 0.5 * dot.get_center()[0] ** 2),
+						energy_axes.coords_to_point(dot.get_center()[0], 0.5 * 4),
+						color=RED
+					)
+				)
+
+				with self.voiceover(
+						"As an object moves through one cycle of Simple Harmonic Motion, we can see how the energy continuously transforms between potential and kinetic forms.") as tracker:
+					self.play(Create(dot), Create(PE_tracker), Create(KE_tracker))
+
+				# Animate the dot back and forth
+				positions = [-2, 2, -1.5, 1.5, -1, 1, -0.5, 0.5, 0, -0.5, 0.5, -1, 1, -1.5, 1.5, -2]
+
+				with self.voiceover(
+						"At the extremes, all energy is potential. As the object moves toward equilibrium, potential energy converts to kinetic energy. At the equilibrium position, all energy is kinetic. Then the process reverses as the object continues to the other extreme.") as tracker:
+					for pos in positions:
+						self.play(
+							dot.animate.move_to(energy_axes.coords_to_point(pos, 0)),
+							run_time=0.25
+						)
+
+				with self.voiceover(
+						"This continuous transformation between potential and kinetic energy is a key characteristic of Simple Harmonic Motion.") as tracker:
+					self.wait(1)
+
+				self.play(FadeOut(*self.mobjects))
+
+			def real_world_examples(self):
+				title = Text("Real-world Examples of SHM", font_size=40)
+				with self.voiceover("Let's look at some real-world examples of Simple Harmonic Motion.") as tracker:
+					self.play(Write(title))
+				self.wait(0.5)
+				self.play(title.animate.to_edge(UP))
+
+
+
+				with self.voiceover(
+						"A simple pendulum is a classic example of Simple Harmonic Motion. For small angles, the pendulum's motion closely approximates SHM, which is why pendulums were used in early clocks.") as tracker:
+					example_group = VGroup(
+						Text(examples[0]["name"], font_size=30, color=BLUE),
+						Text(examples[0]["desc"], font_size=20)
+					).arrange(DOWN, buff=0.3)
+					example_group.shift(DOWN + (0 - 1.5) * 1.5 * DOWN)
+					self.play(Write(example_group))
+
+				with self.voiceover(
+						"Sound waves are another example. When you hear a sound, you're experiencing the vibration of air molecules in a sinusoidal pattern, which is a form of Simple Harmonic Motion.") as tracker:
+					example_group = VGroup(
+						Text(examples[1]["name"], font_size=30, color=BLUE),
+						Text(examples[1]["desc"], font_size=20)
+					).arrange(DOWN, buff=0.3)
+					example_group.shift(DOWN + (1 - 1.5) * 1.5 * DOWN)
+					self.play(Write(example_group))
+
+				with self.voiceover(
+						"Springs are ubiquitous in our daily lives. They're found in vehicle suspensions, mattresses, toys, and countless mechanical devices. All of these utilize the principles of Simple Harmonic Motion.") as tracker:
+					example_group = VGroup(
+						Text(examples[2]["name"], font_size=30, color=BLUE),
+						Text(examples[2]["desc"], font_size=20)
+					).arrange(DOWN, buff=0.3)
+					example_group.shift(DOWN + (2 - 1.5) * 1.5 * DOWN)
+					self.play(Write(example_group))
+
+				with self.voiceover(
+						"Pendulum clocks, which were the standard for timekeeping for centuries, rely on the regular, periodic motion of a pendulum to keep accurate time.") as tracker:
+					example_group = VGroup(
+						Text(examples[3]["name"], font_size=30, color=BLUE),
+						Text(examples[3]["desc"], font_size=20)
+					).arrange(DOWN, buff=0.3)
+					example_group.shift(DOWN + (3 - 1.5) * 1.5 * DOWN)
+					self.play(Write(example_group))
+
+				with self.voiceover(
+						"These examples show how pervasive Simple Harmonic Motion is in our world. From the microscopic vibrations of molecules to the grand swing of a pendulum, this fundamental physical principle shapes many aspects of our experience.") as tracker:
+					self.wait(2)
+
+				self.play(FadeOut(*self.mobjects))
+
+
+		#===[End of Example Output]===#
+			
+		NOTE!!!: Make sure the objects or text in the generated code are not overlapping at any point in the video. Make sure that each scene is properly cleaned up before transitioning to the next scene. Make sure to accurately define each and every object/ class that you use in the final animation, as forgetting to do so will cause the code to error, and it is very crucial for the code to work, as your job as a mathematical animation expert depends on it.
+

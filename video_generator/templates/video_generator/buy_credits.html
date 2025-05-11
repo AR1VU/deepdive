@@ -1,0 +1,181 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buy Credits</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        body {
+            background-color: #1a1a1a;
+            color: white;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+        }
+        .account-container {
+            display: flex;
+            width: 100%;
+            max-width: 1200px;
+            height: 600px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        .account-form {
+            width: 45%;
+            padding: 40px 30px;
+            background-color: #1a1a1a;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            overflow-y: auto;
+        }
+        .account-image {
+            width: 55%;
+            background: linear-gradient(135deg, #a56ef7 0%, #f76ef5 100%);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .geometric-shape {
+            position: absolute;
+            bottom: 5%;
+            right: 15%;
+            width: 70%;
+            height: 60%;
+            background: linear-gradient(135deg, #9c5bf7 0%, #f75bf5 100%);
+            transform: perspective(800px) rotateX(30deg) rotateY(-20deg);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+        }
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            font-weight: normal;
+        }
+        .desc {
+            color: #b0b0b0;
+            margin-bottom: 20px;
+            line-height: 1.4;
+            font-size: 0.95rem;
+        }
+        .form-group {
+            margin-bottom: 18px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #b0b0b0;
+            font-size: 0.95rem;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 10px 15px;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            border: 1px solid #a56ef7;
+            background-color: #18181b;
+            color: #fff;
+            font-size: 1rem;
+        }
+        .messages {
+            margin-bottom: 18px;
+        }
+        .messages ul {
+            list-style: none;
+            padding: 0;
+        }
+        .messages li {
+            background: #2a2a2a;
+            color: #f76ef5;
+            padding: 8px 12px;
+            border-radius: 8px;
+            margin-bottom: 6px;
+            font-size: 0.95rem;
+        }
+        .update-btn {
+            width: 100%;
+            padding: 12px;
+            border-radius: 10px;
+            border: none;
+            background-color: #a56ef7;
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-bottom: 10px;
+            font-weight: normal;
+        }
+        .back-link {
+            text-align: center;
+            margin-top: 10px;
+        }
+        .back-link a {
+            color: #b0b0b0;
+            text-decoration: none;
+            font-size: 0.95rem;
+        }
+        .current-credits {
+            font-size: 1.2rem;
+            margin-bottom: 18px;
+        }
+        .current-credits span {
+            color: #ffd700;
+            font-weight: bold;
+        }
+        .animated {
+            animation-duration: 1s;
+            animation-fill-mode: both;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .fadeIn {
+            animation-name: fadeIn;
+        }
+    </style>
+</head>
+<body class="animated fadeIn">
+    <div class="account-container animated fadeInUp">
+        <div class="account-form">
+            <h1 class="animated fadeInDown">Buy Credits</h1>
+            <div class="desc">Purchase more credits to generate videos and access premium features in DeepDive.</div>
+            <div class="current-credits">Current credits: <span>{{ user.credits }}</span></div>
+            {% if messages %}
+            <div class="messages">
+                <ul>
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+            <form method="post" class="animated fadeInLeft">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="credits">Number of credits to buy</label>
+                    <input type="number" id="credits" name="credits" min="10" required>
+                </div>
+                <button type="submit" class="update-btn animated bounceIn">Buy</button>
+            </form>
+            <div class="back-link">
+                <a href="/" class="animated fadeInRight">&larr; Back to Home</a>
+            </div>
+        </div>
+        <div class="account-image">
+            <div class="geometric-shape"></div>
+        </div>
+    </div>
+</body>
+</html>

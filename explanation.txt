@@ -1,0 +1,19 @@
+The Chain Rule Explained
+
+The chain rule is a fundamental formula in calculus for finding the derivative of a composite function. If you have two functions, f and g, and you create a new function by composing them (i.e., h(x) = f(g(x))), the chain rule gives you a way to differentiate h in terms of f and g.
+
+The chain rule formula states:
+If h(x) = f(g(x)), then h'(x) = f'(g(x)) × g'(x).
+This means you differentiate the outer function (f) evaluated at the inner function (g(x)), and multiply it by the derivative of the inner function (g).
+
+WHY use the chain rule?
+
+Not all functions are simple—the chain rule is essential when you have nested, or composite, functions, like sin(x^2) or e^{3x+1}.
+
+EXAMPLE:
+Let’s differentiate h(x) = (3x + 1)^4.
+  Set f(u) = u^4 and g(x) = 3x + 1.
+  By the chain rule:
+    h'(x) = f'(g(x)) × g'(x) = 4(3x + 1)^3 × 3 = 12(3x + 1)^3
+
+The chain rule is used constantly in calculus, physics, engineering, and many applied sciences.
