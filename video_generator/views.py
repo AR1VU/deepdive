@@ -47,8 +47,7 @@ def generate_video(request):
         return render(request, 'video_generator/form.html', {"video_url": video_url})
 
     # Initialize OpenAI ChatGPT client
-    openai.api_key = "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"  # Replace with your actual API key
-
+    openai.api_key = os.getenv("OPENAI_API_KEY")  # Load from environment variable
 
     # Call OpenAI ChatGPT API to generate Manim code
     try:
@@ -149,7 +148,7 @@ def buy_credits(request):
                 # Create payment intent with Ziina
                 amount = credits_to_add  # 1 credit = 1 AED
                 headers = {
-                    'Authorization': 'Bearer FytJg3oQ+mGleTJpfHXIVsi5Q1+soqdg9oRgwMSarkRNkP863LOKwUKG/JdvfDSQ',
+                    'Authorization': f'Bearer {os.getenv("ZIINA_API_KEY")}',
                     'Content-Type': 'application/json'
                 }
                 payload = {
