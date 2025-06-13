@@ -2,5 +2,5 @@ django
 openai
 requests
 python-dotenv
-manim
+# manim - commented out for Heroku deployment (requires system dependencies)
 # Add any other dependencies your project uses here

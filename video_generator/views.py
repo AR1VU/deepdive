@@ -46,6 +46,13 @@ def generate_video(request):
         video_url = os.path.join(settings.MEDIA_URL, "videos", video_filename)
         return render(request, 'video_generator/form.html', {"video_url": video_url})
 
+    # Check if we're in production (Heroku) where manim is not available
+    if not settings.DEBUG:
+        return render(request, 'video_generator/form.html', {
+            "error": "Custom video generation is currently unavailable in production. Please select from predefined videos.",
+            "user": request.user if request.user.is_authenticated else None
+        })
+
     # Initialize OpenAI ChatGPT client
     openai.api_key = os.getenv("OPENAI_API_KEY")  # Load from environment variable
 
