@@ -1,0 +1,6 @@
+django
+openai
+requests
+python-dotenv
+manim
+# Add any other dependencies your project uses here
