@@ -1,6 +1,7 @@
+django
 gunicorn
 whitenoise
 dj-database-url
 python-dotenv
 requests
-# ...existing requirements...
+openai
