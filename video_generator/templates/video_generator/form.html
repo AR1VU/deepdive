@@ -13,6 +13,33 @@
   </head>
   <body>
     <div id="__next">
+      <!-- Loading Overlay -->
+      {% if loading %}
+      <div id="loading-overlay" style="
+        position: fixed;
+        top: 0; left: 0; width: 100vw; height: 100vh;
+        background: rgba(20,20,30,0.95);
+        z-index: 9999;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      ">
+        <div style="margin-bottom: 2rem;">
+          <svg width="80" height="80" viewBox="0 0 50 50">
+            <circle cx="25" cy="25" r="20" fill="none" stroke="#a56ef7" stroke-width="5" stroke-linecap="round" stroke-dasharray="31.4 31.4" transform="rotate(-90 25 25)">
+              <animateTransform attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="1s" repeatCount="indefinite"/>
+            </circle>
+          </svg>
+        </div>
+        <h2 style="color: #fff; font-size: 2rem; margin-bottom: 1rem;">Generating your video...</h2>
+        <p style="color: #b0b0b0; font-size: 1.1rem;">This may take up to a minute. Please wait.</p>
+      </div>
+      <script>
+        // Prevent interaction while loading
+        document.body.style.overflow = "hidden";
+      </script>
+      {% endif %}
       <main class="page-wrapper">
         <header
           class="rainbow-header header-default header-transparent header-sticky"
@@ -172,15 +199,15 @@
                     today?
                   </h1>
                   <br />
-                  <form class="form-group" action="/generate/" method="get">
+                  <form class="form-group" action="/generate/" method="get" onsubmit="showLoadingScreen()">
                     <textarea
                       id="input"
                       name="input"
                       cols="30"
                       rows="2"
                       placeholder="Describe your problem..."
-                    ></textarea
-                    ><button class="btn-default" type="submit">Generate</button>
+                    >{% if input %}{{ input }}{% endif %}</textarea>
+                    <button class="btn-default" type="submit">Generate</button>
                   </form>
 
                   <div class="inner-shape">
@@ -230,6 +257,8 @@
               </div>
 
               {% if video_url %}
+
+
               <div
                 class="slider-frame"
                 style="
@@ -246,16 +275,23 @@
                   position: relative;
                 "
               >
+             
                 <video style="width: 100%" controls loop playsinline>
                   <source src="{{ video_url }}" type="video/mp4" />
                   Your browser does not support the video tag.
                 </video>
+              <a href="{{ video_url }}" download class="btn-default" style="font-weight: bold;">Download Video</a>
+
               </div>
-              {% endif %} {% if error %}
+              
+              {% endif %} 
+              
+              {% if error %}
               <h2 style="color: red">Error:</h2>
               <p>{{ error }}</p>
               <p>{{ details }}</p>
               {% endif %}
+
             </div>
           </div>
 
@@ -295,5 +331,12 @@
         </svg>
       </div>
     </div>
+    <script>
+      function showLoadingScreen() {
+        // Show loading overlay immediately on form submit
+        var overlay = document.getElementById("loading-overlay");
+        if (overlay) overlay.style.display = "flex";
+      }
+    </script>
   </body>
 </html>

@@ -1,8 +1,4 @@
-django
-openai
-requests
-python-dotenv
-whitenoise
 gunicorn
-# manim - commented out for Heroku deployment (requires system dependencies)
-# Add any other dependencies your project uses here
+dj-database-url
+python-dotenv
+# ...existing requirements...

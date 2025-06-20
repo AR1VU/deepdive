@@ -46,23 +46,27 @@ def generate_video(request):
         video_url = os.path.join(settings.MEDIA_URL, "videos", video_filename)
         return render(request, 'video_generator/form.html', {"video_url": video_url})
 
-    # Check if we're in production (Heroku) where manim is not available
-    if not settings.DEBUG:
-        return render(request, 'video_generator/form.html', {
-            "error": "Custom video generation is currently unavailable in production. Please select from predefined videos.",
-            "user": request.user if request.user.is_authenticated else None
-        })
+    # Show loading screen while generating video
+    if request.GET.get("loading") != "1":
+        # Redirect to same page with loading=1 to trigger loading screen
+        params = request.GET.copy()
+        params["loading"] = "1"
+        return render(request, 'video_generator/form.html', {"loading": True, "input": user_input})
 
     # Initialize OpenAI ChatGPT client
     openai.api_key = os.getenv("OPENAI_API_KEY")  # Load from environment variable
 
     # Call OpenAI ChatGPT API to generate Manim code
     try:
+        prompt_path = os.path.join(settings.BASE_DIR, "prompt.txt")
+        if not os.path.exists(prompt_path):
+            return render(request, 'video_generator/form.html', {"error": "Prompt file not found."})
+        with open(prompt_path, "r", encoding="utf-8") as f:
+            system_prompt = f.read()
         response = openai.ChatCompletion.create(
             model="gpt-4.1",
-            # open prompt.txt file for the system message
             messages=[
-                {"role": "system", "content": open("prompt.txt").read()},
+                {"role": "system", "content": system_prompt},
                 {"role": "user", "content": user_input}
             ]
         )
