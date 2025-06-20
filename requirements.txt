@@ -1,4 +1,5 @@
 gunicorn
 dj-database-url
 python-dotenv
+whitenoise
 # ...existing requirements...
