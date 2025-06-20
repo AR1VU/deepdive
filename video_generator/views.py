@@ -169,7 +169,7 @@ def buy_credits(request):
                     'success_url': request.build_absolute_uri('/buy-credits/success/?credits=' + str(credits_to_add)),
                     'cancel_url': request.build_absolute_uri('/buy-credits/cancel/'),
                     'failure_url': request.build_absolute_uri('/buy-credits/failure/'),
-                    'test': True,  # Set to False in production
+                    'test': False,  # Set to False in production
                     'transaction_source': 'directApi'
                 }
                 response = requests.post('https://api-v2.ziina.com/api/payment_intent', headers=headers, json=payload)
